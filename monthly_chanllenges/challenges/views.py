@@ -93,11 +93,12 @@ def monthly_challenge(request, jeff_month):
 
 def monthly_challenge_by_numbers(request, jeff_month_by_number):
     #Redirect the number of a month to its string value.
-    try:
-        month = list(monthly_challenges.keys())
-        response_redirect_month = month[jeff_month_by_number - 1]
-    except:
-        return HttpResponseNotFound("invalid response")
+    month = list(monthly_challenges.keys())
+
+    if jeff_month_by_number > len(month): 
+        return HttpResponseNotFound("invalid MONTH")
+    
+    response_redirect_month = month[jeff_month_by_number - 1]
     return HttpResponseRedirect(f'/challenges/{response_redirect_month}')
 
 
