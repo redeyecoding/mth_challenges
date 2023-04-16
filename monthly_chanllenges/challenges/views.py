@@ -86,9 +86,10 @@ monthly_challenges_via_number = {
 def monthly_challenge(request, jeff_month):
     try:
         challenge_text = monthly_challenges[jeff_month]
+        reponse_html_data = f'<h1>{challenge_text}</h1>'
     except:
         return HttpResponseNotFound("invalid response")
-    return HttpResponse(challenge_text)
+    return HttpResponse(reponse_html_data)
 
 
 
