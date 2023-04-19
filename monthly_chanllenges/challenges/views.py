@@ -83,6 +83,7 @@ monthly_challenges_via_number = {
 }
 
 
+
 def monthly_challenge(request, jeff_month):
     try:
         challenge_text = monthly_challenges[jeff_month]
@@ -101,8 +102,20 @@ def monthly_challenge_by_numbers(request, jeff_month_by_number):
         return HttpResponseNotFound("invalid MONTH")
 
     response_redirect_month = month[jeff_month_by_number - 1]
-    redirect_path = reverse("months_text_format", args=[response_redirect_month])  # create path "challenges/january"
+    redirect_path = reverse("months_text_format", args=[response_redirect_month])  # creates path "challenges/january"
     return HttpResponseRedirect(redirect_path)
 
+
+def index(request):
+    list_of_months = list(monthly_challenges.keys())
+    list_items = ""
+
+    for month in list_of_months:
+        upper_case_month = month.capitalize()
+        month_path = reverse("months_text_format", args=[month])
+        list_items += f"<li><a href='{month_path}'>{upper_case_month}</a></li>"
+    
+    response_data = f"<ul>{list_items}</ul>"
+    return HttpResponse(response_data)
 
 
